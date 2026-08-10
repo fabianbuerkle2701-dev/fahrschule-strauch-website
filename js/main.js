@@ -15,11 +15,18 @@ function initSite() {
     });
   }
 
-  // Back-to-top visibility + header shadow
+  // Scroll progress bar
+  const progress = document.createElement("div");
+  progress.className = "scroll-progress";
+  document.body.appendChild(progress);
+
+  // Back-to-top visibility + header shadow + progress
   const onScroll = () => {
     const y = window.scrollY;
     if (toTop) toTop.classList.toggle("visible", y > 480);
     if (header) header.style.boxShadow = y > 8 ? "0 4px 20px rgba(0,0,0,0.06)" : "none";
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = max > 0 ? (y / max) * 100 + "%" : "0";
   };
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
