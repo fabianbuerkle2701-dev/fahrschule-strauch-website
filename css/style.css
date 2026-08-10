@@ -144,14 +144,25 @@ a { color: inherit; text-decoration: none; }
 .top-bar a { display: inline-flex; align-items: center; gap: 6px; }
 .top-bar a:hover { color: #fff; }
 .top-bar .top-bar-links { display: flex; gap: 20px; flex-wrap: wrap; }
-.top-bar .lang-tag {
-  background: rgba(0, 152, 160, 0.18);
-  color: #8fe3e8;
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+  font-size: 0.78rem;
+}
+.lang-switch a {
   padding: 3px 10px;
   border-radius: 100px;
-  font-weight: 600;
-  font-size: 0.75rem;
+  color: #c7c9cd;
+  transition: color var(--transition), background var(--transition);
 }
+.lang-switch a:hover { color: #fff; }
+.lang-switch a.active {
+  background: rgba(0, 152, 160, 0.25);
+  color: #8fe3e8;
+}
+.lang-switch .sep { color: #55585e; }
 
 /* ===== Header ===== */
 header.site-header {
@@ -210,6 +221,8 @@ nav.main-nav a::after {
 }
 nav.main-nav a:hover { color: var(--color-primary); }
 nav.main-nav a:hover::after { width: 100%; }
+nav.main-nav a.active { color: var(--color-primary); }
+nav.main-nav a.active::after { width: 100%; }
 
 .header-cta { display: flex; align-items: center; gap: 14px; }
 
@@ -322,6 +335,49 @@ nav.main-nav a:hover::after { width: 100%; }
 }
 .hero-float-card strong { display: block; font-size: 0.92rem; }
 .hero-float-card span { font-size: 0.8rem; color: var(--color-text-muted); }
+
+/* ===== Page title band (subpages) ===== */
+.page-title {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(150deg, var(--color-dark) 0%, #0d2b2e 70%, var(--color-primary-dark) 140%);
+  color: #fff;
+  padding: 72px 0 60px;
+}
+.page-title::before {
+  content: "";
+  position: absolute;
+  width: 380px; height: 380px;
+  top: -140px; right: -100px;
+  border-radius: 50%;
+  background: rgba(0, 152, 160, 0.3);
+  filter: blur(80px);
+  pointer-events: none;
+}
+.page-title h1 {
+  color: #fff;
+  margin: 0;
+  font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+  letter-spacing: -0.02em;
+}
+.page-title p {
+  color: rgba(255,255,255,0.72);
+  margin: 12px 0 0;
+  max-width: 640px;
+  font-size: 1.05rem;
+}
+
+.service-card .more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-top: 6px;
+  transition: gap var(--transition);
+}
+.service-card .more:hover { gap: 10px; }
 
 /* ===== Marquee / termine strip ===== */
 .termine-strip {
