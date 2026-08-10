@@ -697,6 +697,11 @@ footer.site-footer {
 }
 
 @media (max-width: 760px) {
+  .top-bar { font-size: 0.78rem; }
+  .top-bar .container { flex-wrap: nowrap; padding-top: 7px; padding-bottom: 7px; }
+  .top-bar .top-bar-links { gap: 12px; flex-wrap: nowrap; }
+  .top-bar .top-bar-links a[href^="mailto"],
+  .top-bar .top-bar-links > span { display: none; }
   nav.main-nav { display: none; }
   .nav-toggle { display: flex; }
   .header-cta .btn span { display: none; }
