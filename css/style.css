@@ -489,8 +489,8 @@ nav.main-nav a.active::after { width: 100%; }
 /* ===== Team ===== */
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 26px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
 }
 .team-card {
   background: #fff;
@@ -756,7 +756,6 @@ footer.site-footer {
   .about-grid, .panel, .contact-grid { grid-template-columns: 1fr; }
   .panel .panel-media { order: -1 !important; }
   .usp-grid { grid-template-columns: repeat(2, 1fr); }
-  .team-grid { grid-template-columns: repeat(2, 1fr); }
   .services-grid { grid-template-columns: 1fr; }
   .module-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
