@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Interne Arbeitsdateien nicht indexieren
+Disallow: /assistant-backend/
+
+Sitemap: https://fabianbuerkle2701-dev.github.io/fahrschule-strauch-website/sitemap.xml

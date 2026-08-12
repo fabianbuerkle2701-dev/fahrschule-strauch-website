@@ -1028,3 +1028,76 @@ footer.site-footer {
   /* Auf dem Handy übernimmt die Aktionsleiste unten; kein zusätzlicher Pfeil */
   .to-top { display: none; }
 }
+
+/* =========================================================
+   Moderne Ebene
+   Fortschrittliche Techniken, die in aelteren Browsern
+   einfach uebersprungen werden. Nichts davon ist zwingend.
+   ========================================================= */
+
+/* --- Weiche Uebergaenge beim Seitenwechsel (View Transitions) --- */
+@view-transition { navigation: auto; }
+
+::view-transition-old(root) { animation: vt-out 0.22s ease both; }
+::view-transition-new(root) { animation: vt-in 0.3s ease both; }
+@keyframes vt-out { to { opacity: 0; transform: translateY(-6px); } }
+@keyframes vt-in { from { opacity: 0; transform: translateY(8px); } }
+
+/* Logo und Kopfband bleiben beim Wechsel stehen statt mitzublenden */
+.brand img { view-transition-name: vt-logo; }
+.top-bar { view-transition-name: vt-topbar; }
+header.site-header { view-transition-name: vt-header; }
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+}
+
+/* --- Einblenden beim Scrollen, direkt vom Browser gesteuert --- */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 5% cover 22%;
+    }
+    @keyframes reveal-in {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  }
+}
+
+/* --- Feinere Tiefe: Karten heben sich beim Zeigen leicht --- */
+.usp-card,
+.service-card,
+.team-card,
+.contact-card {
+  transition: border-color var(--transition), transform 0.25s cubic-bezier(0.2, 0.7, 0.3, 1), box-shadow 0.25s ease;
+}
+@media (hover: hover) {
+  .service-card:hover,
+  .team-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px -12px rgba(0, 0, 0, 0.22);
+  }
+}
+
+/* Teamfotos ziehen beim Zeigen sanft heran */
+.team-photo { overflow: hidden; }
+.team-photo img { transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.3, 1); }
+@media (hover: hover) {
+  .team-card:hover .team-photo img { transform: scale(1.035); }
+}
+
+/* --- Zahlen und Zeiten immer auf gleicher Breite --- */
+.termine-strip, .hero-note { font-variant-numeric: tabular-nums; }
+
+/* --- Auswahlfarbe passend zur Marke --- */
+::selection { background: var(--c-accent); color: #fff; }
+
+/* --- Bildlaufleiste dezent einfaerben --- */
+@supports (scrollbar-color: auto) {
+  :root { scrollbar-color: var(--c-line) transparent; }
+}
