@@ -42,9 +42,7 @@ function initSite() {
   if (themeToggle) {
     themeToggle.addEventListener("click", () => {
       const root = document.documentElement;
-      const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      const current = root.dataset.theme || (systemDark ? "dark" : "light");
-      const next = current === "dark" ? "light" : "dark";
+      const next = root.dataset.theme === "dark" ? "light" : "dark";
       root.dataset.theme = next;
       try { localStorage.setItem("theme", next); } catch (e) {}
     });

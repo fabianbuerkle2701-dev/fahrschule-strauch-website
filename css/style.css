@@ -20,19 +20,6 @@
   --transition: 0.2s ease;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --c-accent: #2fb8bf;
-    --c-accent-strong: #56cdd3;
-    --c-accent-soft: rgba(47, 184, 191, 0.12);
-    --c-bg: #0d1516;
-    --c-bg-soft: #121e1f;
-    --c-ink: #eef4f3;
-    --c-ink-2: #93a6a4;
-    --c-line: #213233;
-    --c-footer: #0a1112;
-  }
-}
 :root[data-theme="dark"] {
   --c-accent: #2fb8bf;
   --c-accent-strong: #56cdd3;
@@ -210,10 +197,6 @@ a { color: inherit; text-decoration: none; }
 .theme-toggle .icon-sun { display: none; }
 :root[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
 :root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .theme-toggle .icon-sun { display: block; }
-  :root:not([data-theme="light"]) .theme-toggle .icon-moon { display: none; }
-}
 
 /* ===== Header ===== */
 header.site-header {
@@ -306,50 +289,53 @@ nav.main-nav a.active { color: var(--c-accent); border-color: var(--c-accent); }
   font-variant-numeric: tabular-nums;
 }
 
-/* ===== Hero ===== */
-.hero { padding: 88px 0 104px; }
-.hero .container {
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
+/* ===== Hero (vollflächig mit Bild) ===== */
+.hero {
+  position: relative;
+  display: flex;
   align-items: center;
-  gap: 72px;
+  min-height: min(78vh, 760px);
+  padding: 120px 0;
+  color: #fff;
+  overflow: hidden;
 }
-.hero h1 { margin-bottom: 22px; }
-.hero h1 em { font-style: normal; color: var(--c-accent); }
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(88deg, rgba(7, 15, 16, 0.86) 0%, rgba(7, 15, 16, 0.62) 52%, rgba(7, 15, 16, 0.28) 100%);
+}
+.hero .container { position: relative; z-index: 2; width: 100%; }
+.hero-copy { max-width: 620px; }
+.hero .eyebrow { color: #7fd8dc; }
+.hero h1 { color: #fff; margin-bottom: 22px; }
+.hero h1 em { font-style: normal; color: #5fd0d6; }
 .hero p.lead {
-  color: var(--c-ink-2);
+  color: rgba(255, 255, 255, 0.85);
   font-size: 1.12rem;
   max-width: 480px;
   margin-bottom: 36px;
 }
 .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
-
-.hero-media { position: relative; }
-.hero-media img {
-  width: 100%;
-  aspect-ratio: 4/3;
-  object-fit: cover;
-  border-radius: var(--radius);
-}
-.hero-media::after {
-  content: "";
-  position: absolute;
-  inset: 14px -14px -14px 14px;
-  border: 1px solid var(--c-line);
-  border-radius: var(--radius);
-  z-index: -1;
-}
 .hero-note {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 40px;
+  margin-top: 44px;
   padding-top: 24px;
-  border-top: 1px solid var(--c-line);
-  color: var(--c-ink-2);
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.75);
   font-size: 0.88rem;
+  max-width: 480px;
 }
-.hero-note svg { color: var(--c-accent); flex-shrink: 0; }
+.hero-note svg { color: #5fd0d6; flex-shrink: 0; }
 
 /* ===== USP row ===== */
 .usp-grid {
@@ -689,7 +675,7 @@ footer.site-footer {
 
 /* ===== Responsive ===== */
 @media (max-width: 980px) {
-  .hero .container, .about-grid, .panel, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+  .about-grid, .panel, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
   .usp-grid { grid-template-columns: 1fr; }
   .usp-card + .usp-card { border-left: none; border-top: 1px solid var(--c-line); }
   .services-grid { grid-template-columns: 1fr; }
@@ -697,12 +683,11 @@ footer.site-footer {
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .maxi-box { grid-template-columns: 1fr; }
   .maxi-qr { justify-self: start; }
-  .hero-media::after { display: none; }
 }
 
 @media (max-width: 760px) {
   .section { padding: 72px 0; }
-  .hero { padding: 56px 0 72px; }
+  .hero { padding: 88px 0; min-height: 0; }
   .top-bar .top-bar-links a[href^="mailto"],
   .top-bar .top-bar-links > span { display: none; }
   nav.main-nav { display: none; }
