@@ -37,6 +37,33 @@ function initSite() {
     });
   }
 
+  // Theme toggle (hell/dunkel), Auswahl wird gespeichert
+  const themeToggle = document.getElementById("themeToggle");
+  if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+      const root = document.documentElement;
+      const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const current = root.dataset.theme || (systemDark ? "dark" : "light");
+      const next = current === "dark" ? "light" : "dark";
+      root.dataset.theme = next;
+      try { localStorage.setItem("theme", next); } catch (e) {}
+    });
+  }
+
+  // Countdown bis zum nächsten Kursstart
+  const countdown = document.getElementById("courseCountdown");
+  if (countdown && countdown.dataset.date) {
+    const start = new Date(countdown.dataset.date + "T00:00:00");
+    const days = Math.ceil((start - new Date()) / 86400000);
+    if (days > 1) {
+      countdown.textContent = countdown.dataset.labelDays.replace("%d", days);
+    } else if (days >= 0) {
+      countdown.textContent = countdown.dataset.labelSoon;
+    } else {
+      countdown.remove();
+    }
+  }
+
   // Reveal on scroll
   const revealEls = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window && revealEls.length) {
