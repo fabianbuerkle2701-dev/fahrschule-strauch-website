@@ -545,6 +545,13 @@
 
     function scrollLog() { log.scrollTop = log.scrollHeight; }
 
+    // Wie lange Viktor "tippt": kurze Antwort kurz, lange Antwort laenger.
+    // Wirkt ruhiger als eine feste Verzoegerung.
+    function thinkTime(text) {
+      var n = String(text || "").length;
+      return Math.min(2000, 520 + n * 8);
+    }
+
     function addMsg(who, text, extraNode) {
       var wrap = document.createElement("div");
       wrap.className = "vk-msg vk-msg-" + who;
@@ -629,7 +636,7 @@
         addMsg("bot", topic.answer, topic.handoff ? handoffNode() : null);
         history.push({ role: "assistant", content: topic.answer });
         renderSuggestions();
-      }, 420);
+      }, thinkTime(topic.answer));
     }
 
     function answerLocal(value) {
@@ -640,7 +647,7 @@
         t.remove();
         addMsg("bot", pack.fallback, handoffNode());
         renderSuggestions();
-      }, 420);
+      }, thinkTime(pack.fallback));
     }
 
     function answerViaApi(value) {
@@ -678,13 +685,17 @@
     function start() {
       if (started) return;
       started = true;
-      addMsg("bot", pack.greeting);
-      var note = document.createElement("p");
-      note.className = "vk-disclaimer";
-      note.textContent = pack.disclaimer;
-      log.appendChild(note);
-      renderSuggestions();
-      scrollLog();
+      var t = showTyping();
+      window.setTimeout(function () {
+        t.remove();
+        addMsg("bot", pack.greeting);
+        var note = document.createElement("p");
+        note.className = "vk-disclaimer";
+        note.textContent = pack.disclaimer;
+        log.appendChild(note);
+        renderSuggestions();
+        scrollLog();
+      }, 620);
     }
 
     function open() {
