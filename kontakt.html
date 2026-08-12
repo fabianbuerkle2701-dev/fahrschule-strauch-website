@@ -31,10 +31,10 @@
 <meta name="twitter:description" content="Fahrschule Viktor Strauch, Schwarzwaldstr. 93 in Lahr. Telefon, E-Mail, Anfahrt und aktuelle Kurstermine. Anmeldung auch auf Russisch möglich.">
 <meta name="twitter:image" content="https://fabianbuerkle2701-dev.github.io/fahrschule-strauch-website/images/Fahrschule-1.jpg">
 <link rel="icon" href="images/favicon.ico">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=Rubik:wght@500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=12">
+<link rel="preload" href="fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/onest-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/fonts.css?v=1">
+<link rel="stylesheet" href="css/style.css?v=13">
 <script>(function(){try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}})()</script>
 <script type="application/ld+json">
 {
@@ -190,12 +190,9 @@
           </div>
         </div>
 
-        <div class="map-embed reveal">
-          <iframe
-            src="https://www.openstreetmap.org/export/embed.html?bbox=7.826%2C48.335%2C7.847%2C48.343&amp;layer=mapnik&amp;marker=48.33908%2C7.83639"
-            title="Fahrschule Viktor Strauch, Schwarzwaldstr. 93, 77933 Lahr"
-            loading="lazy"></iframe>
-        </div>
+        <div class="map-embed reveal"
+             data-map-src="https://www.openstreetmap.org/export/embed.html?bbox=7.826%2C48.335%2C7.847%2C48.343&amp;layer=mapnik&amp;marker=48.33908%2C7.83639"
+             data-map-title="Fahrschule Viktor Strauch, Schwarzwaldstr. 93, 77933 Lahr"></div>
       </div>
     </div>
   </section>
@@ -253,5 +250,6 @@
 
 <script src="js/main.js?v=9"></script>
 <script src="js/assistant.js?v=3"></script>
+<script src="js/consent.js?v=1"></script>
 </body>
 </html>

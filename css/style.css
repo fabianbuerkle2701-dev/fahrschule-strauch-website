@@ -1101,3 +1101,96 @@ header.site-header { view-transition-name: vt-header; }
 @supports (scrollbar-color: auto) {
   :root { scrollbar-color: var(--c-line) transparent; }
 }
+
+/* =========================================================
+   Datenschutzhinweis und Kartenplatzhalter
+   ========================================================= */
+.consent {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 800;
+  background: var(--c-bg);
+  border: 1px solid var(--c-line);
+  border-top: 3px solid var(--c-accent);
+  border-radius: 12px;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.2);
+  animation: consent-in 0.32s cubic-bezier(0.16, 0.9, 0.3, 1) both;
+}
+@keyframes consent-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.consent-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+.consent-text { flex: 1 1 420px; min-width: 0; }
+.consent-text strong {
+  display: block;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 5px;
+}
+.consent-text p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--c-ink-2);
+  max-width: 74ch;
+}
+.consent-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.consent-link {
+  font-size: 0.83rem;
+  color: var(--c-ink-2);
+  border-bottom: 1px solid var(--c-line);
+  padding-bottom: 1px;
+}
+.consent-link:hover { color: var(--c-accent); border-color: var(--c-accent); }
+
+.consent-revoke { color: inherit; border-bottom: 1px solid transparent; }
+.consent-revoke:hover { color: #fff; border-color: currentColor; }
+
+/* Platzhalter, solange die Karte nicht geladen ist */
+.map-hold {
+  min-height: 380px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 32px 24px;
+  text-align: center;
+  background: var(--c-bg-soft);
+  color: var(--c-ink-2);
+}
+.map-hold svg { color: var(--c-accent); }
+.map-hold-note {
+  margin: 0;
+  font-size: 0.88rem;
+  max-width: 34ch;
+  line-height: 1.55;
+}
+.map-hold-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+
+@media (max-width: 760px) {
+  .consent { left: 10px; right: 10px; bottom: 10px; }
+  .consent-inner { padding: 18px; gap: 16px; }
+  .consent-actions { width: 100%; }
+  .consent-actions .btn { flex: 1 1 auto; justify-content: center; }
+  /* Assistent und Aktionsleiste weichen dem Hinweis aus */
+  .consent ~ .vk-root { bottom: 190px; }
+}
