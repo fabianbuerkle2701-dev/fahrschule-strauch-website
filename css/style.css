@@ -445,12 +445,15 @@ p { margin: 0; }
 .about-copy p, .panel-copy p { color: var(--ink-2); max-width: var(--measure); }
 .highlight {
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.05rem;
+  font-weight: 700;
+  font-size: clamp(1.1rem, 1.7vw, 1.4rem);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
   color: var(--ink);
-  border-left: 4px solid var(--signal);
-  padding-left: 18px;
-  line-height: 1.35;
+  max-width: 22ch;
+  margin-top: 6px;
+  padding-top: 20px;
+  border-top: 2px solid var(--ink);
 }
 
 /* ---------- Team: versetztes Raster ---------- */
@@ -917,11 +920,10 @@ p { margin: 0; }
 .vk-bubble p + p { margin-top: 0.6em; }
 
 .vk-disclaimer {
-  margin: 2px 0 0;
-  font-size: 0.75rem; line-height: 1.5;
-  color: var(--ink-2);
-  border-left: 3px solid var(--signal);
-  padding-left: 11px;
+  margin: 4px 2px 2px;
+  font-size: 0.74rem;
+  line-height: 1.5;
+  color: var(--ink-3);
 }
 
 .vk-dots { display: inline-flex; gap: 4px; padding: 3px 0; }
