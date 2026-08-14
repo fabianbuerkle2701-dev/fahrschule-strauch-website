@@ -457,17 +457,19 @@ p { margin: 0; }
 }
 
 /* ---------- Team: versetztes Raster ---------- */
+/* Zwei Spalten, Querformat: die Fotos sind quer aufgenommen.
+   Ein Hochformat-Zuschnitt schneidet die Fahrzeuge ab, und bei vier
+   Spalten sind die Gesichter zu klein. */
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(16px, 2vw, 26px);
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(24px, 3vw, 40px);
 }
-.team-card { display: grid; gap: 14px; align-content: start; }
-.team-card:nth-child(even) { margin-top: clamp(24px, 4vw, 56px); }
+.team-card { display: grid; gap: 16px; align-content: start; }
 .team-photo { overflow: hidden; background: var(--surface-2); }
 .team-photo img {
   width: 100%;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 4 / 3;
   object-fit: cover;
   transition: transform 520ms var(--ease-out);
 }
@@ -781,7 +783,6 @@ p { margin: 0; }
   .usp-grid { grid-template-columns: 1fr 1fr; }
   .usp-card:first-child { grid-column: 1 / -1; }
   .about-grid, .panel, .contact-grid { grid-template-columns: 1fr; gap: 32px; }
-  .team-grid { grid-template-columns: repeat(2, 1fr); }
   .maxi-box { grid-template-columns: 1fr; }
   .maxi-qr { justify-self: start; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -804,7 +805,6 @@ p { margin: 0; }
   .site-header.nav-open .main-nav ul { flex-direction: column; gap: 16px; font-size: 1rem; }
   .usp-grid { grid-template-columns: 1fr; }
   .team-grid { grid-template-columns: 1fr; }
-  .team-card:nth-child(even) { margin-top: 0; }
   .service-card { grid-template-columns: 1fr; gap: 14px; }
   .service-card ul.meta { gap: 26px; }
   .mobile-bar { display: flex; }
