@@ -37,6 +37,32 @@ function initSite() {
     });
   }
 
+  // Hintergrundvideo im Hero.
+  // Der automatische Start scheitert je nach Browser, wenn beim Versuch
+  // noch zu wenig gepuffert ist. Deshalb hier ein Nachstarten, sobald
+  // Daten da sind. Wer reduzierte Bewegung eingestellt hat, bekommt
+  // stattdessen dauerhaft das Standbild.
+  var heroVideo = document.querySelector(".hero-video");
+  if (heroVideo) {
+    var mag = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mag.matches) {
+      heroVideo.removeAttribute("autoplay");
+      heroVideo.pause();
+    } else {
+      var starte = function () {
+        var p = heroVideo.play();
+        if (p && p.catch) p.catch(function () {});
+      };
+      if (heroVideo.readyState >= 2) starte();
+      heroVideo.addEventListener("loadeddata", starte, { once: true });
+      heroVideo.addEventListener("canplay", starte, { once: true });
+      // Nach Rueckkehr in den Tab weiterlaufen lassen
+      document.addEventListener("visibilitychange", function () {
+        if (!document.hidden && heroVideo.paused) starte();
+      });
+    }
+  }
+
   // Theme toggle (hell/dunkel), Auswahl wird gespeichert
   const themeToggle = document.getElementById("themeToggle");
   if (themeToggle) {
