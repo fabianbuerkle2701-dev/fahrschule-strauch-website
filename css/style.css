@@ -18,6 +18,13 @@
   --line: #262a30;
   --line-strong: #383d45;
 
+  /* Dunkle Flaechen: Kopfzeile, Fusszeile, Seitenkopf, Kaesten.
+     Bleibt in beiden Varianten dunkel, deshalb ein eigener Wert
+     und nicht --ink, das mit der Variante kippt. */
+  --panel: #101317;
+  --on-panel: #cdd2d8;
+  --on-panel-2: #8f969f;
+
   /* Akzent: die Farbe aus dem Logo, unveraendert.
      Schrift auf gefuellten Akzentflaechen ist dunkel. */
   --signal: #0199a6;
@@ -53,6 +60,9 @@
   --ink-3: #8b9099;
   --line: #dcdcd6;
   --line-strong: #c2c2ba;
+  --panel: #14161a;
+  --on-panel: #cdd2d8;
+  --on-panel-2: #8f969f;
   /* Heller Grund: derselbe Farbton, dunkler abgestuft. Die
      Logofarbe selbst ist auf Weiss zu hell fuer Text (3.4:1). */
   --signal: #016670;
@@ -153,7 +163,7 @@ p { margin: 0; }
 .section { padding-block: clamp(72px, 11vw, 140px); }
 .section--edge { border-top: 1px solid var(--line); }
 .section--sunk { background: var(--surface-2); }
-.section--ink { background: var(--ink); color: #cdd2d8; }
+.section--ink { background: var(--panel); color: var(--on-panel); }
 .section--ink h2, .section--ink h3 { color: #fff; }
 
 /* Abschnittskopf: linksbuendig, nie zentriert */
@@ -224,8 +234,8 @@ p { margin: 0; }
 
 /* ---------- Kopfzeile ---------- */
 .top-bar {
-  background: var(--ink);
-  color: rgba(255,255,255,0.72);
+  background: var(--panel);
+  color: var(--on-panel);
   font-size: 0.78rem;
 }
 .top-bar .container {
@@ -360,11 +370,20 @@ p { margin: 0; }
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 18px;
-  padding-block: 11px;
+  gap: 8px 16px;
+  padding-block: 10px;
   font-size: 0.85rem;
   flex-wrap: wrap;
   text-align: center;
+}
+.termine-kurs { font-weight: 600; }
+.termine-datum { font-variant-numeric: tabular-nums; }
+.termine-zeiten { opacity: 0.85; }
+/* Trennpunkte statt langer Fliesszeile */
+.termine-datum::before, .termine-zeiten::before {
+  content: "·";
+  margin-right: 16px;
+  opacity: 0.5;
 }
 .countdown-chip {
   font-family: var(--font-display);
@@ -514,7 +533,7 @@ p { margin: 0; }
   align-content: start;
   gap: 12px;
 }
-.usp-card:first-child { background: var(--ink); color: #cdd2d8; }
+.usp-card:first-child { background: var(--panel); color: var(--on-panel); }
 .usp-card:first-child h3 { color: #fff; }
 .usp-card:first-child .icon { color: var(--signal); }
 .usp-card .icon { color: var(--ink); }
@@ -637,7 +656,7 @@ p { margin: 0; }
   background: rgba(255,255,255,0.12);
   border: 1px solid rgba(255,255,255,0.12);
 }
-.module-card { background: var(--ink); padding: 26px 24px; display: grid; gap: 8px; align-content: start; }
+.module-card { background: var(--panel); padding: 26px 24px; display: grid; gap: 8px; align-content: start; }
 .module-card .num {
   font-family: var(--font-display);
   font-weight: 700;
@@ -649,8 +668,8 @@ p { margin: 0; }
 
 /* ---------- MAXI ---------- */
 .maxi-box {
-  background: var(--ink);
-  color: #cdd2d8;
+  background: var(--panel);
+  color: var(--on-panel);
   padding: clamp(34px, 5vw, 68px);
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr);
@@ -733,7 +752,7 @@ p { margin: 0; }
   .social-row a:hover { background: var(--signal); border-color: var(--signal); }
 }
 
-.termine-card { background: var(--ink); color: #cdd2d8; padding: 28px 30px; display: grid; gap: 4px; }
+.termine-card { background: var(--panel); color: var(--on-panel); padding: 28px 30px; display: grid; gap: 4px; }
 .termine-card h3 { color: #fff; margin-bottom: 12px; }
 .termine-card .date-row {
   display: flex; justify-content: space-between; gap: 16px;
@@ -750,15 +769,15 @@ p { margin: 0; }
 
 /* ---------- Seitenkopf der Unterseiten ---------- */
 .page-title {
-  background: var(--ink);
-  color: #cdd2d8;
+  background: var(--panel);
+  color: var(--on-panel);
   padding-block: clamp(56px, 8vw, 104px);
 }
 .page-title h1 { color: #fff; font-size: clamp(1.8rem, 3.6vw, 3rem); }
 .page-title p { color: #9aa1aa; margin-top: 18px; max-width: 48ch; }
 
 /* ---------- Fusszeile ---------- */
-.site-footer { background: var(--ink); color: #8f969f; padding-top: clamp(48px, 6vw, 80px); font-size: 0.9rem; }
+.site-footer { background: var(--panel); color: var(--on-panel-2); padding-top: clamp(48px, 6vw, 80px); font-size: 0.9rem; }
 .footer-grid {
   display: grid;
   grid-template-columns: 1.5fr 1fr 1fr 1fr;
@@ -898,6 +917,27 @@ p { margin: 0; }
   .service-card ul.meta { gap: 26px; }
   .mobile-bar { display: flex; }
   .to-top { display: none; }
+
+  /* Terminband kompakt: eine Zeile statt vier. Die Zeiten und der
+     Knopf entfallen, die Aktionsleiste unten fuehrt ohnehin zum Ziel. */
+  .termine-strip .container {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 10px;
+    padding-block: 8px;
+    font-size: 0.76rem;
+    overflow: hidden;
+  }
+  .termine-zeiten { display: none; }
+  .termine-strip .btn { display: none; }
+  .countdown-chip { font-size: 0.66rem; padding: 3px 8px; flex-shrink: 0; }
+  .termine-kurs {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .termine-datum { flex-shrink: 0; }
+  .termine-datum::before { margin-right: 10px; }
   .hero-media::before { display: none; }
   .footer-grid { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; align-items: flex-start; }
@@ -957,7 +997,7 @@ p { margin: 0; }
   align-items: center;
   gap: 12px;
   padding: 14px 16px;
-  background: var(--ink);
+  background: var(--panel);
   color: #fff;
   flex-shrink: 0;
 }

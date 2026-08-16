@@ -34,7 +34,7 @@
 <link rel="preload" href="fonts/firacond-800-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/golostext-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/fonts.css?v=3">
-<link rel="stylesheet" href="css/style.css?v=21">
+<link rel="stylesheet" href="css/style.css?v=22">
 <script>(function(){try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}})()</script>
 <script type="application/ld+json">
 {
@@ -152,7 +152,9 @@
 <div class="termine-strip">
   <div class="container">
     <span class="countdown-chip" id="courseCountdown" data-date="2026-08-24" data-label-days="%d days left" data-label-soon="Starting soon">Next course</span>
-    <span>Intensive theory course (cat. B) · 24-31 Aug 2026 · Mon-Fri 5:15-8:30 pm, Sat 9:00 am-12:15 pm</span>
+    <span class="termine-kurs">Intensive theory course, cat. B</span>
+    <span class="termine-datum">24-31 Aug 2026</span>
+    <span class="termine-zeiten">Mon-Fri 5:15-8:30 pm, Sat 9:00 am-12:15 pm</span>
     <a href="kontakt-en.html" class="btn btn-light btn-xs">Book your spot</a>
   </div>
 </div>
@@ -167,9 +169,9 @@
 </div>
   <section class="hero">
     <video class="hero-video" autoplay muted loop playsinline preload="auto"
-           poster="images/hero-poster.jpg" aria-hidden="true" tabindex="-1">
-      <source src="video/hero-strasse.mp4" type="video/mp4">
-    </video>
+           poster="images/hero-poster.jpg" aria-hidden="true" tabindex="-1"
+           src="video/hero-1.mp4"
+           data-clips="video/hero-1.mp4,video/hero-2.mp4,video/hero-3.mp4,video/hero-4.mp4"></video>
     <div class="container">
       <div class="hero-copy">
         <span class="eyebrow">Driving school in Lahr/Black Forest</span>
@@ -547,7 +549,7 @@
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
 </button>
 
-<script src="js/main.js?v=10"></script>
+<script src="js/main.js?v=12"></script>
 <script src="js/assistant.js?v=3"></script>
 <script src="js/consent.js?v=1"></script>
 </body>

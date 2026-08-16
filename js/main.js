@@ -37,26 +37,59 @@ function initSite() {
     });
   }
 
-  // Hintergrundvideo im Hero.
+  // Hintergrundvideo im Hero: mehrere Clips nacheinander.
   // Der automatische Start scheitert je nach Browser, wenn beim Versuch
-  // noch zu wenig gepuffert ist. Deshalb hier ein Nachstarten, sobald
-  // Daten da sind. Wer reduzierte Bewegung eingestellt hat, bekommt
-  // stattdessen dauerhaft das Standbild.
+  // noch zu wenig gepuffert ist, deshalb wird nachgestartet. Wer
+  // reduzierte Bewegung eingestellt hat, bekommt nur das Standbild.
   var heroVideo = document.querySelector(".hero-video");
   if (heroVideo) {
-    var mag = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (mag.matches) {
+    var magBewegung = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!magBewegung) {
       heroVideo.removeAttribute("autoplay");
       heroVideo.pause();
     } else {
+      var clips = (heroVideo.dataset.clips || "").split(",").filter(Boolean);
+      var index = 0;
+
       var starte = function () {
         var p = heroVideo.play();
         if (p && p.catch) p.catch(function () {});
       };
+
+      // Naechsten Clip im Voraus laden, damit der Wechsel nicht stockt
+      var laadeVor = function () {
+        if (clips.length < 2) return;
+        var naechster = clips[(index + 1) % clips.length];
+        var l = document.createElement("link");
+        l.rel = "prefetch";
+        l.as = "video";
+        l.href = naechster;
+        document.head.appendChild(l);
+      };
+
+      var wechsle = function () {
+        index = (index + 1) % clips.length;
+        heroVideo.src = clips[index];
+        heroVideo.load();
+        laadeVor();
+      };
+
+      if (clips.length > 1) {
+        heroVideo.removeAttribute("loop");
+        heroVideo.addEventListener("ended", wechsle);
+        // Laesst sich ein Clip nicht laden, wird er uebersprungen
+        heroVideo.addEventListener("error", function () {
+          if (clips.length > 1) wechsle();
+        });
+      }
+
+      // Ohne once: greift auch nach jedem Clipwechsel, sonst bliebe
+      // das Video stehen, wenn play() direkt nach load() zu frueh kommt
+      heroVideo.addEventListener("loadeddata", starte);
+      heroVideo.addEventListener("canplay", starte);
+      heroVideo.addEventListener("canplaythrough", laadeVor, { once: true });
       if (heroVideo.readyState >= 2) starte();
-      heroVideo.addEventListener("loadeddata", starte, { once: true });
-      heroVideo.addEventListener("canplay", starte, { once: true });
-      // Nach Rueckkehr in den Tab weiterlaufen lassen
+
       document.addEventListener("visibilitychange", function () {
         if (!document.hidden && heroVideo.paused) starte();
       });
